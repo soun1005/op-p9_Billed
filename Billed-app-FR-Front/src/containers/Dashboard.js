@@ -27,6 +27,7 @@ export const filteredBills = (data, status) => {
     }) : []
 }
 
+// create cards of bills
 export const card = (bill) => {
   const firstAndLastNames = bill.email.split('@')[0]
   const firstName = firstAndLastNames.includes('.') ?
@@ -85,10 +86,11 @@ export default class {
     if (typeof $('#modaleFileAdmin1').modal === 'function') $('#modaleFileAdmin1').modal('show')
   }
 
+  // open bill on the right container when card is clicked
   handleEditTicket(e, bill, bills) {
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
-    if (this.counter % 2 === 0) {
+    if (this.counter % 2 === 0) {console.log('here')
       bills.forEach(b => {
         $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
       })
@@ -130,9 +132,12 @@ export default class {
     this.onNavigate(ROUTES_PATH['Dashboard'])
   }
 
+  // index = index of arrows that open lists
+  // index1 -> En attente / index2 -> Valide / index3 -> refuse
   handleShowTickets(e, bills, index) {
     if (this.counter === undefined || this.index !== index) this.counter = 0
     if (this.index === undefined || this.index !== index) this.index = index
+    // styles to turn arrows when clicked
     if (this.counter % 2 === 0) {
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
       $(`#status-bills-container${this.index}`)
@@ -144,8 +149,9 @@ export default class {
         .html("")
       this.counter ++
     }
+    const billsFiltered = filteredBills(bills, getStatus(this.index))
 
-    bills.forEach(bill => {
+    billsFiltered.forEach(bill => {
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 

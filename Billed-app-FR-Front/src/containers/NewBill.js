@@ -69,7 +69,6 @@ export default class NewBill {
       fileName: this.fileName,
       status: 'pending'
     }
-    // console.log(bill.fileName)
 
     if(bill.fileName === null){
       bill.fileUrl = null
