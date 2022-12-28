@@ -25,6 +25,17 @@ export default class NewBill {
     formData.append('file', file)
     formData.append('email', email)
 
+    console.log(file);
+
+    const allowedImgType = ['image/jpeg', 'image/jpg', 'image/png'];
+    const fileType = file.type;
+    if(!allowedImgType.includes(fileType)){
+      this.fileUrl = null
+      this.fileName = null
+      this.billId = null
+      return
+    }
+
     this.store
       .bills()
       .create({
@@ -39,6 +50,7 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+
   }
   handleSubmit = e => {
     e.preventDefault()
@@ -57,6 +69,14 @@ export default class NewBill {
       fileName: this.fileName,
       status: 'pending'
     }
+    // console.log(bill.fileName)
+
+    if(bill.fileName === null){
+      bill.fileUrl = null
+      bill.fileName = null
+      return
+    }
+
     this.updateBill(bill)
     this.onNavigate(ROUTES_PATH['Bills'])
   }
