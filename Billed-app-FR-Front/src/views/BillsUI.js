@@ -9,7 +9,7 @@ const row = (bill) => {
     <tr>
       <td>${bill.type}</td>
       <td>${bill.name}</td>
-      <td>${bill.date}</td>
+      <td>${bill.dateDisplayed}</td>
       <td>${bill.amount} €</td>
       <td>${bill.status}</td>
       <td>
@@ -19,12 +19,18 @@ const row = (bill) => {
     `)
   }
 
-const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+const getBillsrows = (bills) => {
+  const billSorted = bills.sort((a, b) => new Date(a.date) - new Date(b.date));
+console.log(billSorted)
+  return billSorted.map(bill => row(bill)).join("")
+}
+
+// each bills are passed as param to 'row()' function.
+const rows = (bills) => {
+  return (bills && bills.length) ? getBillsrows(bills) : ""
 }
 
 export default ({ data: bills, loading, error }) => {
-  
   const modal = () => (`
     <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
