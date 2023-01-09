@@ -25,8 +25,6 @@ export default class NewBill {
     formData.append('file', file)
     formData.append('email', email)
 
-    console.log(file);
-
     const allowedImgType = ['image/jpeg', 'image/jpg', 'image/png'];
     const fileType = file.type;
     if(!allowedImgType.includes(fileType)){
