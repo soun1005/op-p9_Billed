@@ -58,7 +58,6 @@ describe("Given I am connected as an employee", () => {
       newBillBtn.addEventListener('click', handleClickNewBill)
       userEvent.click(newBillBtn)
       const newBillPageTitle = screen.getByTestId('content-title')
-      console.log(newBillPageTitle)
 
       expect(handleClickNewBill).toHaveBeenCalled()
       expect(newBillPageTitle.textContent).toMatch('Envoyer une note de frais')
