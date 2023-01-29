@@ -20,7 +20,7 @@ const row = (bill) => {
   }
 
 const getBillsrows = (bills) => {
-  const billSorted = bills.sort((a, b) => new Date(b.date) - new Date(a.date));
+  const billSorted = bills.sort((a, b) => new Date(a.date) - new Date(b.date));
   return billSorted.map(bill => row(bill)).join("")
 }
 
